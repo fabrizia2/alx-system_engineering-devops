@@ -1,1 +1,2 @@
-got
+#!/bin/bash
+echo $(pwd)
