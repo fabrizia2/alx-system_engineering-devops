@@ -1,3 +1,4 @@
 #!/bin/bash
 cp /bin/ls .
 ls -la
+/tmp/magic$ file --mime-type -m school.mgc *
