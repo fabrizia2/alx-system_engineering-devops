@@ -1,1 +1,2 @@
-cd-
+#!/bin/bash
+echo (ls-l)
