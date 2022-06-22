@@ -3,3 +3,4 @@ cp /bin/ls .
 ls -la
 /tmp/magic$ file --mime-type -m school.mgc *
 /tmp/magic$ file -m school.mgc *
+/tmp/magic$
