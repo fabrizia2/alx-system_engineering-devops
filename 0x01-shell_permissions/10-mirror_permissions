@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod --reference=newfile.txt hello
+chmod --reference=hello 10-mirror_permissions
