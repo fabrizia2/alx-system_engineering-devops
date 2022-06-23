@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod --reference=olleh.txt hello
+chmod --75=newfile.olleh hellow
