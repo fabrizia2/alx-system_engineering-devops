@@ -2,7 +2,7 @@
 # A Bash script that displays Best School 10 times using while loop
 
 r=0
-while [ $i -lt 10 ]
+while [ $r -lt 10 ]
 do
  echo "Best School"
  ((r++))
