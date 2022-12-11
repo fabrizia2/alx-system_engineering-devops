@@ -1,5 +1,5 @@
 # 0x09. Web infrastructure design
-
+![The logo](https://en.wikipedia.org/wiki/Computer_program#/media/File:Operating_system_placement_(software).svg)
 ## Server
 A server is a computer program or device that provides a service to another computer program and its user, also known as the client. In a data center, the physical computer that a server program runs on is also frequently referred to as a server.
 
