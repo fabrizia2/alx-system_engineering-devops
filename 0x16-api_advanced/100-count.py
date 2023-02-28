@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 """ recursive function that queries the Reddit API"""
 import requests
-
-#!/usr/bin/python3
-""" recursive function that queries the Reddit API"""
-import requests
 import sys
 after = None
 count_dic = []

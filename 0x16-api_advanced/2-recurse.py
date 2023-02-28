@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ 100-count
     Function to count words in all hot posts of a given Reddit subreddit."""
-import requests
 
 import requests
 
