@@ -1,64 +1,55 @@
 #!/usr/bin/python3
+
 """
-This script defines a function to print a sorted count of given keywords
-present inside a given subreddit using recursion
+    This function retrieves the title of all hot articles from a subreddit and
+    counts the occurrences of the keywords provided in `word_list`.
+    The keyword counts are then sorted and printed in descending order
+    by count, and alphabetically for words with the same count.
 """
 import requests
 
 
-def count_words(subreddit, word_list, word_dict=None, after=None):
+def count_words(subreddit, word_list, after=None):
     """
-    A function that queries the Reddit API recursively, parses the title of
-    all hot articles, and prints a sorted count of given keywords.
-
+    This function retrieves the title of all hot articles from a subreddit and
+    counts the occurrences of the keywords provided in `word_list`.
+    The keyword counts are then sorted and printed in descending order
+    by count, and alphabetically for words with the same count.
     Parameters:
-    - subreddit (str): The name of the subreddit to search.
-    - word_list (list): A list of strings representing the keywords to search
-    - word_dict (dict, optional): A dictionary tostorethecountof each keyword
-    - after (str, optional): A string representing the 'after' parameter for
-
+    subreddit (str): The subreddit to retrieve hot articles from
+    word_list (list): A list of keywords to count the occurrences of
+    after (str, optional): The `after` parameter used for
+    pagination of Reddit API results
     Returns:
-    - None: If no posts match or the subreddit is invalid.
+    None
     """
-    if not word_dict:
-        word_dict = {}
 
-    # Construct the URL to query based on whether 'after' is specified or not
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    url = "https://www.reddit.com/r/" + subreddit + "/hot.json"
+    params = {"limit": 100}
     if after:
-        url += "?after={}".format(after)
-
-    headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(url, headers=headers)
-
-    # Handle errors and invalid subreddits
-    if response.status_code == 404:
-        return
+        params["after"] = after
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/\
+          537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+    }
+    response = requests.get(url, params=params, headers=headers)
     if response.status_code != 200:
-        return None
+        return
 
     data = response.json()
-    children = data["data"]["children"]
+    word_count = {}
+    for word in word_list:
+        word_count[word.lower()] = 0
+
+    for post in data["data"]["children"]:
+        title = post["data"]["title"].lower()
+        for word in word_count.keys():
+            word_count[word] += title.count(word)
+
     after = data["data"]["after"]
-
-    # Count the occurrences of each keyword in the titles of the hot posts
-    for child in children:
-        title = child["data"]["title"].lower()
-
-        for word in word_list:
-            if word.lower() in title:
-                if word.lower() not in word_dict:
-                    word_dict[word.lower()] = 1
-                else:
-                    word_dict[word.lower()] += 1
-
-    # Recursively call the function with the 'after' parameter for pagination
     if after:
-        count_words(subreddit, word_list, word_dict, after)
-    else:
-        # Sort the dictionary by count and then alphabetically by keyword
-        sorted_words = sorted(word_dict.items(), key=lambda x: (-x[1], x[0]))
+        count_words(subreddit, word_list, after)
 
-        # Print the results
-        for word, count in sorted_words:
+    for word, count in sorted(word_count.items(), key=lambda x: (-x[1], x[0])):
+        if count > 0:
             print("{}: {}".format(word, count))
