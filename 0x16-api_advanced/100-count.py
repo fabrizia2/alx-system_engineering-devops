@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+This script defines a function to print a sorted count of given keywords
+present inside a given subreddit using recursion
+"""
 import requests
 
 
