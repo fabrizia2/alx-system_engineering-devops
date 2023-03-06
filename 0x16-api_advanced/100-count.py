@@ -62,7 +62,7 @@ def count_words(subreddit, word_list):
     recurse(subreddit, dictionary)
 
     sorted_items = sorted(dictionary.items(), key=lambda kv: kv[1])
-    reversed_items = list(reversed(sorted_items))
+    sorted_items.reverse()
 
     if len(l) != 0:
         for item in l:
