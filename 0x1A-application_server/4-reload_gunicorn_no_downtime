@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 #reload gunicorn
-pkill -HUP gunicorn
+status="OK"
+if [[ "$status" == "OK" ]]; then
+    pkill -HUP gunicorn
+fi
